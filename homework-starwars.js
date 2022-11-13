@@ -9,36 +9,55 @@ console.log(
     sumAllStarshipsCostFromEpisodes(4, 6)
 );
 
-// function sumAllStarshipsCostFromEpisodes(startEp, endEp) {
-//   let sum = 0;
-//   //keys for all episodes
-//   let episode = [];
-//   for(let i = startEp; i <= endEp; i++){
-//     episode.push(i)
-//   }
-//   for(let i = 0; i < episode.length; i++){
-//       const result = starships.forEach((element) => {
-//         if(episode[i] === films.episode_id){
-//           sum += 
-//         }
-//       })
-//   }
+function sumAllStarshipsCostFromEpisodes(startEp, endEp) {
+  let sum = 0;
+  //keys for all episodes
+  let episode = []; // 4 5 6
+  for(let i = startEp; i <= endEp; i++){
+    episode.push(i)
+  }
+  let starshipInEpisode = [];
+  for(let i = 0; i < episode.length; i++){
+    films.filter((currEpisode) => {
+      if(currEpisode.episode_id === episode[i]){
+        starshipInEpisode.push(currEpisode.starships)
+      }
+    })
+  }
+  // console.log(starshipInEpisode)
+  // merging arrays to get duplicates
+  const mergeArray = starshipInEpisode.flat(1);
+  const deleteDuplicatesArray = [...new Set(mergeArray)] // delete duplicates
+  // console.log(deleteDuplicatesArray)
+  // maybe I should delete old array to clean up, but idk how to do this
+  // counting money 1001410609998
+  starships.forEach((element) => {
+    deleteDuplicatesArray.forEach((arrayElement) => {
+      if(element.url === arrayElement && element.cost_in_credits !== "unknown"){
+        sum += parseInt(element.cost_in_credits)
+      }
+    })
+  })
+  return sum;
+}
+sumAllStarshipsCostFromEpisodes(4, 6)
 
-//   return sum;
-// }
 // find the fastest starship you can afford having 8500000 credits
 
-// console.log(
-//   'Fastest ship I can get for up to 8500000 is: ' +
-//     getFastestShipFor(8500000).name
-// );
-
+console.log(
+  'Fastest ship I can get for up to 8500000 is: ' +
+    getFastestShipFor(8500000).name
+);
+// TO DO!!!!!!!!!!!!!!!!!
 function getFastestShipFor(money) {
-  let ship;
+  let ship = [];
   // TODO
+  const result = starships.filter((element) => element.cost_in_credits <= money)
+                          .sort((a, b) => a.max_atmosphering_speed - b.max_atmosphering_speed)
+  ship.push(result)
   return ship;
 }
-
+getFastestShipFor(8500000)
 // find planet name with the lowest difference between the rotation period and orbital period
 
 // console.log(
