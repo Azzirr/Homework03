@@ -51,13 +51,12 @@ console.log(
 // TO DO!!!!!!!!!!!!!!!!!
 function getFastestShipFor(money) {
   let ship = [];
-  // TODO
   const result = starships.filter((element) => element.cost_in_credits <= money)
                           .sort((a, b) => a.max_atmosphering_speed - b.max_atmosphering_speed)
-  ship.push(result)
-  return ship;
+  ship = result.at(-1)
+  // TO DO! There is two ships at the same max speed - J-type diplomatic barge
+  return ship; 
 }
-getFastestShipFor(8500000)
 // find planet name with the lowest difference between the rotation period and orbital period
 
 // console.log(
@@ -67,23 +66,37 @@ getFastestShipFor(8500000)
 
 function getPlanetNameWithLowestDifference(key1, key2) {
   let planetName;
-  // TODO
   return planetName;
 }
 
 // map all starships with crew <= 4 that were created between 10 dec 2014 and 15 dec 2014
 
-// console.log(
-//   'Ships with max crew of 4 created between 10.12.2014 - 12.12.2014 number is: ' +
-//     getCrewShipFrom(4, new Date(2014, 12, 10), new Date(2014, 12, 12)).length
-// );
+console.log(
+  'Ships with max crew of 4 created between 10.12.2014 - 12.12.2014 number is: ' +
+    getCrewShipFrom(4, new Date(2014, 11, 10), new Date(2014, 11, 15)).length
+);
 
 function getCrewShipFrom(maxCrew, dateStart, dateEnd) {
-  let ship;
-  // TODO
-  return ship;
-}
+  let ship = [];
+  let d = new Date();
+  const startMs = dateStart.getTime();
+  const endMs = dateEnd.getTime();
+  let crew4 = [];
+  //console.log(startMs)
 
+  const result = starships.map((currentShip) => {
+    if(currentShip.crew <= maxCrew){
+      crew4.push(currentShip)
+    }
+  })
+  const x = crew4.forEach((element) => {
+    if(Date.parse(element.created) > startMs && Date.parse(element.created) < endMs){
+      ship.push(element)
+    }
+  })
+  return ship;
+
+}
 // create an array of people’s names from episodes 1 and 5 sorted by the diameter of origin planet low to high
 
 // console.log(
@@ -92,7 +105,14 @@ function getCrewShipFrom(maxCrew, dateStart, dateEnd) {
 // );
 
 function getPeopleSortedByOriginPlanetDiameter(startEp, endEp) {
-  let people;
-
+  let people = [];
+  const result = people.map((currentPeople) => {
+    const result2 = planets.map((currentMap) => {
+      if(currentPeople.homeworld === currentMap.url){
+        people.push(currentPeople)
+      }
+    })
+  })
+  console.log(people)
   return people;
 }
